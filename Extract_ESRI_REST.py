@@ -55,7 +55,7 @@ def polygonTransform(FeatureClass):
         in_table=FeatureClass,
         field="MERGE",
         expression="1",
-        expression_type="VB",
+        expression_type="PYTHON3",
         code_block="")
 
     print("Field Calculated")
@@ -139,7 +139,7 @@ def lineTransform(FeatureClass):
     # run buffer on the feature class to create a polygon feature class
     #
     arcpy.Buffer_analysis(
-        in_features=Shapefile,
+        in_features=FeatureClass,
         out_feature_class=buffer,
         buffer_distance_or_field="5000 Meters",
         line_side="FULL", line_end_type="ROUND",
@@ -167,7 +167,7 @@ def lineTransform(FeatureClass):
     arcpy.CalculateField_management(
         in_table=buffer, field="MERGE",
         expression="1",
-        expression_type="VB",
+        expression_type="PYTHON3",
         code_block="")
 
     print("Field Calculated")
@@ -207,8 +207,9 @@ def lineTransform(FeatureClass):
 if __name__ == '__main__':
     # Setup
     arcpy.env.overwriteOutput = True
-    baseURL = "https://gisp.dfo-mpo.gc.ca/arcgis/rest/services/FGP/Herring_Sections_Shapefile/MapServer/0"
+    # baseURL = "https://gisp.dfo-mpo.gc.ca/arcgis/rest/services/FGP/Herring_Sections_Shapefile/MapServer/0"
     # baseURL = "https://webservices.maps.canada.ca/arcgis/rest/services/StatCan/census_division_2016_en/MapServer/0"
+    baseURL = "https://maps-cartes.services.geo.ca/server_serveur/rest/services/NRCan/dsra_cascadia_en/MapServer/3"
     fields = "*"
     outdata = "C:/TEMP/data.gdb/testdata10"
     gdb = "C:/TEMP/data.gdb"
@@ -349,7 +350,7 @@ if __name__ == '__main__':
         in_table=ShapefileAll,
         field="MERGE",
         expression="1",
-        expression_type="VB",
+        expression_type="PYTHON3",
         code_block="")
 
     print("Field Calculated")
@@ -423,8 +424,9 @@ if __name__ == '__main__':
         geoJSON="GEOJSON")
 
     print("ESRI JSON created")
-
+    '''
     arcpy.Delete_management(gdb)
     arcpy.Delete_management(ShapefileAll)
     arcpy.Delete_management(dissolve)
     arcpy.Delete_management(singlepart)
+    '''
